@@ -1,0 +1,4 @@
+.env
+.flaskenv
+*.txt
+__pycache__
