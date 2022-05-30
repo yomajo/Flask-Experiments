@@ -1,6 +1,8 @@
 from dotenv import load_dotenv
 import os
 
+from pydantic import BaseSettings
+
 # load environment variables
 load_dotenv('.env')
 
@@ -26,3 +28,6 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     DATABASE_URI = 'sqlite:///:memory:'
     TESTING = True
+
+class DevSettingsForFastAPI(BaseSettings, DevelopmentConfig):
+    pass
