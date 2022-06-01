@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Users{% endblock %}
+
+{% block bp_nav %}
+<div class="tabs is-centered">
+    <ul>
+        <li><a href="{{ url_for('roles_bp.users') }}">users</a></li>
+        <li class="is-active"><a href="{{ url_for('roles_bp.register') }}">register</a></li>
+        <li><a href="{{ url_for('roles_bp.login') }}">login</a></li>
+        <li><a href="{{ url_for('roles_bp.members_only') }}">members only</a></li>
+        <li><a href="{{ url_for('roles_bp.users') }}">admin area</a></li>
+        <li>user/id (pick at users)</li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <form method="POST">
+            <label class="label">Username</label>
+            <input type="text" name="username" placeholder="Enter username">
+
+            <label class="label">Password</label>
+            <input type="password" name="password" placeholder="Enter a dummy password">
+
+            <label class="label">Clearance</label>
+            <input type="text" name="clearance" placeholder="Clearance level as: [1,2,3]">
+            <br>
+            <input type="submit" class="button">
+        </form>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <p>Unhandled details:</p>
+            <ul class="mt-4">
+                <li>Dont register same username twice</li>
+            </ul>
+        </div>
+
+    </section>
+</section>
+
+{% endblock %}

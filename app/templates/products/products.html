@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+
+{% block content %}
+
+<section class="section">
+    <a href={{ url_for('prod_bp.add_new') }} class="button">Add new</a>
+</section>
+
+<section class="section">
+
+    {% if products %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Qty</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td><a href="{{ url_for('prod_bp.product', id=product.id) }}">{{ product.name }}</a></td>
+                <td>{{ product.qty }} <a href="{{ url_for('prod_bp.delete', id=product.id) }}"><button
+                            class="delete"></button></td></a>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    {% else %}
+    <div class="notification is-warning">
+        Currently no items are in database. Add one!
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

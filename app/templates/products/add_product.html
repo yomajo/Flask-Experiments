@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block title %}Add New Product{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        
+        <form action="{{ url_for('prod_bp.products') }}" method="POST">
+            <div class="field">
+                <label class="label">ID</label>
+                <div class="control">
+                  <input class="input" type="text" name="id" placeholder="Enter ID">
+                </div>
+              </div>
+    
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input class="input" type="text" name="name" placeholder="Enter Name">
+                </div>
+              </div>
+            
+              <div class="field">
+                <label class="label">Qty</label>
+                <div class="control">
+                  <input class="input" type="text" name="qty" placeholder="Enter quantity">
+                </div>
+              </div>
+            
+              <input type="submit" class="button">
+        
+        </form>
+    </div>
+</section>
+
+{% endblock %}

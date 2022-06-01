@@ -1,17 +1,26 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Experimenting with Flask and APIs!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-</head>
+{% block title %}Home{% endblock %}
 
-<body>
-    <section class="section">
-        <a href={{ url_for('bp.products') }} class="button">Products</a>
-    </section>
-</body>
-
-</html>
+{% block content %}
+<div class="container">
+    <div class="card mb-6">
+        <header class="card-header">
+            <a href={{ url_for('prod_bp.products') }} class="title is-4">Products</a>
+        </header>
+        <div class="content mt-4">
+            Simple products CRUD
+        </div>
+    </div>
+    
+    <div class="card mb-6">
+        <header class="card-header">
+            <a href={{ url_for('roles_bp.register') }} class="title is-4">Users and Roles</a>
+        </header>
+        <div class="content mt-4">
+            Register, login via flask-login. Use of @login_required decorator as well as
+            custom role limiting on routes 
+        </div>
+    </div>
+</div>
+{% endblock %}
