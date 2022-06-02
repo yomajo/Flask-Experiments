@@ -10,7 +10,7 @@ class User(db.Model):
     clearance = db.Column(db.Integer, nullable=False)
 
     def __repr__(self) -> str:
-        return f'Products(id={self.id}, name={self.name}, password={self.password}, clearance={self.clearance})'    
+        return f'User(id={self.id}, name={self.name}, password={self.password}, clearance={self.clearance})'    
 
 
 class Products(db.Model):

@@ -1,8 +1,19 @@
-from flask import Blueprint, jsonify, render_template, redirect, url_for, request, session, g
+import json
+from flask import Blueprint, jsonify, render_template, redirect, url_for, request, session, abort
+from ..decorators import required_clearance
 from ..models import db, User
 
 roles_bp = Blueprint('roles_bp', __name__, template_folder='../templates/users', url_prefix='/users')
 
+#replace @required_clearance(3) with login_required after flask-login integration  
+
+@roles_bp.route('/')
+@required_clearance(3)
+def users():
+    if 'username' in session:
+        logged_in_as = db.session.query(User).filter_by(name=session['username']).first()
+    registered_users = User.query.all()
+    return render_template('users.html', logged_in_as=logged_in_as, registered_users=registered_users)
 
 @roles_bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -13,7 +24,6 @@ def register():
         user = User(name=name, password=password, clearance=clearance)
         db.session.add(user)
         db.session.commit()
-        print(f'\nregistered new user {name}\n')
         return redirect(url_for('roles_bp.login'))
     
     return render_template('register.html')
@@ -29,7 +39,7 @@ def login():
                 # set cookie? session stuff?
                 session['username'] = name
                 
-                return redirect(url_for('roles_bp.members_only'))
+                return redirect(url_for('roles_bp.users'))
             else:
                 return jsonify({'msg':'Wrong password'})
         else:
@@ -38,32 +48,74 @@ def login():
     if 'username' in session:
         logged_in_as = session['username']
         print(f'\nAlready logged in as: {logged_in_as}\n')
-        return redirect(url_for('roles_bp.members_only'))
+        return redirect(url_for('roles_bp.users'))
 
     return render_template('login.html')
 
 @roles_bp.route('/logout')
+@required_clearance(3)
 def logout():
     if 'username' in session:
         session.pop('username')
-        return f'''<p>logged out. Check cookies</p><br><a href="{url_for('roles_bp.users')}">Users</a>'''
+        return f'''<p>logged out. Check cookies</p><br><a href="{url_for('roles_bp.login')}">To Login</a>'''
     else:
-        return f'''<p>You are not logged in!</p><br><a href="{url_for('roles_bp.login')}">Users</a>'''
+        return f'''<p>You are not logged in!</p><br><a href="{url_for('site.index')}">Home</a>'''
 
-@roles_bp.route('/users')
-def users():
-    # registered_users = User.query.all()
-    return render_template('users.html')
-
-@roles_bp.route('/users/<id>')
+@roles_bp.route('/user/<id>', methods=['GET', 'POST', 'DELETE'])
+@required_clearance(3)
 def user(id:int):
-    return render_template('user.html')
+    if 'username' in session:
+        logged_in_as = db.session.query(User).filter_by(name=session['username']).first()
+        target_user = db.session.query(User).filter_by(id=id).first_or_404()
 
-@roles_bp.route('/users/members_only')
-def members_only():
+    if request.method == 'POST':
+        # allow edit for admin and self
+        if logged_in_as.id == id or logged_in_as.clearance == 1:
+            user_to_edit = db.session.query(User).filter_by(id=id).first_or_404()
+            new_username = request.form['username']
+            user_to_edit.name = new_username
+            db.session.commit()
+            return redirect(url_for('roles_bp.admin_dashboard'))
+        else:
+            abort(403)
+    # GET
+    return render_template('user.html', user=target_user)
+
+@roles_bp.route('/delete/<int:id>', methods=['GET', 'POST'])
+@required_clearance(2)
+def delete_user(id):
+
+    logged_in_as = db.session.query(User).filter_by(name=session['username']).first()
+    target_user = db.session.query(User).filter_by(id=id).first_or_404()
+    if request.method == 'POST':
+        # skipping asking for confirmation in production...
+        if logged_in_as.clearance == 1 or (logged_in_as.clearance == 2 and target_user.clearance == 3):
+            db.session.delete(target_user)
+            db.session.commit()
+            return redirect(url_for('roles_bp.admin_dashboard'))
+        else:
+            abort(403)
+    else:
+        return jsonify({'msg':'get request on delete endpoint...'})
+
+@roles_bp.route('/managers_only')
+@required_clearance(2)
+def managers_only():
+    if 'username' in session:
+        logged_in_as = db.session.query(User).filter_by(name=session['username']).first_or_404()
     registered_users = User.query.all()
-    return render_template('members_only.html', registered_users=registered_users)
+    return render_template('managers_only.html', logged_in_as=logged_in_as, registered_users=registered_users)
 
-@roles_bp.route('/users/admin_dashboard')
+
+@roles_bp.route('/admin_dashboard')
+@required_clearance(1)
 def admin_dashboard():
-    return jsonify({'msg':'If you are not admin, we have failed'})
+    registered_users = User.query.all()
+    return render_template('admin_dashboard.html', registered_users=registered_users)
+
+
+@roles_bp.route('/<int:id>')
+@required_clearance(2)
+def promote(id, methods='PUT'):
+    print(f'\nTrying to promote dude {id}\n')
+    return jsonify({'msg':'To be implemented...'})

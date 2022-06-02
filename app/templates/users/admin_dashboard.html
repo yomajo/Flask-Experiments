@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Area{% endblock %}
+
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            Welcome back, Sir
+        </h1>
+        <h2 class="subtitle">Promote or demote employees, delete pleb accounts</h2>
+    </div>
+</section>
+
+<section class="section">
+    {% if registered_users %}
+    <table class="table">
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Clearance</th>
+            <th>Actions</th>
+        </thead>
+
+        <tbody>
+            {% for user in registered_users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.clearance }}</td>
+                <td>
+                    <a href="{{ url_for('roles_bp.user', id=user.id) }}" class="button">Edit</a>
+
+
+
+                    {% if session['username'] == user.name %}
+                    <form method="POST" action="{{ url_for('roles_bp.delete_user', id=user.id) }}">
+                        <button class="button is-danger" type="submit" value="Delete" disabled>Delete User immadiately</button>
+                    </form>
+                    <a href="" class="button is-warning" disabled>Demote</a>
+                    {% else %}
+                    <form method="POST" action="{{ url_for('roles_bp.delete_user', id=user.id) }}">
+                        <button class="button is-danger" type="submit" value="Delete">Delete User immadiately</button>
+                    </form>
+                    <a href="" class="button is-warning" disabled>Demote</a>
+                    {% endif %}
+                    <a href="" class="button is-success" disabled>Promote</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    {% else %}
+    <p>No users have registered yet. If you see this, authorization decoracor is not applied or has failed!</p>
+    {% endif %}
+</section>
+{% endblock %}

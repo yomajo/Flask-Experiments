@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Members only area - Users{% endblock %}
+{% block title %}Managers Area - Users{% endblock %}
 
 {% block content %}
 <section class="section">
     <div class="container">
         <p class="title">Members area</p>
-        <p class="content">You are logged in as: [to be added] {{ [] }}</p>
+        <p class="content">You are logged in as: {{ logged_in_as.name }}</p>
     </div>
 
     {% if registered_users %}

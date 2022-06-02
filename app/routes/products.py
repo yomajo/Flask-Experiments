@@ -31,6 +31,6 @@ def product(id:int):
 
 @prod_bp.route('/delete/<int:id>')
 def delete(id:int):
-    item_to_delete = db.session.query(Products).filter(Products.id==id).delete()
+    db.session.query(Products).filter(Products.id==id).delete()
     db.session.commit()
     return redirect(url_for('prod_bp.products'))
