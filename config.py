@@ -15,7 +15,7 @@ class DevelopmentConfig(Config):
     PG_PASS = os.environ['PG_PASS']
 
     PG_USER='yo'
-    PG_DB='flaskapilearning'
+    PG_DB='flaskexperiments'
     PG_HOST='localhost'
     PG_PORT='5432'
 

@@ -3,8 +3,7 @@ from flask import Flask, render_template
 from app.routes import site
 from app.routes.products import prod_bp
 from app.routes.users import roles_bp
-from app.models import db
-
+# from app.extensions import login_manager
 
 
 def create_app():
@@ -16,7 +15,9 @@ def create_app():
 
     app.config.from_object(DevelopmentConfig)    
 
-    from app.models import db
+    from app.extensions import db
     db.init_app(app)
+
+    # login_manager.init_app(app)
 
     return app

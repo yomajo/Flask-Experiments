@@ -2,19 +2,6 @@
 
 {% block title %}Users{% endblock %}
 
-{% block bp_nav %}
-<div class="tabs is-centered">
-    <ul>
-      <li class="is-active"><a href="{{ url_for('users.users') }}">users</a></li>
-      <li><a>register</a href="{{ url_for('users.register') }}"></li>
-      <li><a>login</a href="{{ url_for('users.login') }}"></li>
-      <li><a>members only</a href="{{ url_for('users.members_only') }}"></li>
-      <li><a>admin area</a href="{{ url_for('users.users') }}"></li>
-      <li>user/id (pick at users)</li>
-    </ul>
-  </div>
-{% endblock %}
-
 {% block content %}
 <section class="section">
     <div class="container">
