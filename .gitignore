@@ -1,4 +1,6 @@
 .env
 .flaskenv
+.venv
 *.txt
 __pycache__
+shortscripts
