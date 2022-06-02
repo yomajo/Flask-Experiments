@@ -3,4 +3,4 @@
 .venv
 *.txt
 __pycache__
-shortscripts
+short_scripts
