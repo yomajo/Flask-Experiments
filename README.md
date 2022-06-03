@@ -13,6 +13,8 @@ Currently in menu:
 
 ### Products CRUD
 
-`/users` - flask-login, Session to register, login users and based on `clearance` level allow / disallow to access certain routes
+`/users` - flask-login, to register, login users and based on `clearance` level allow / disallow to access certain routes.
+
+See `required_clearance` decorator for role-based access control.
 
 
