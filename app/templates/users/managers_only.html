@@ -5,8 +5,9 @@
 {% block content %}
 <section class="section">
     <div class="container">
-        <p class="title">Members area</p>
-        <p class="content">You are logged in as: {{ logged_in_as.name }}</p>
+        <p class="title">Managers Area</p>
+        <p class="subtitle">Promote or demote employees</p>
+        <p class="content">You are logged in as: {{ current_user.name }}</p>
     </div>
 
     {% if registered_users %}
@@ -25,7 +26,7 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.clearance }}</td>
-                    {% if session['username'] == user.name %}
+                    {% if current_user.name == user.name %}
                     <td>
                         <form method="POST" action="{{ url_for('roles_bp.promote', user_id=user.id) }}">
                             <button class="button is-success" type="submit" value="Promote" disabled>Promote to

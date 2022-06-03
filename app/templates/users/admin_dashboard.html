@@ -30,9 +30,9 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.clearance }}</td>
                 <td>
-                    <a href="{{ url_for('roles_bp.user', id=user.id) }}" class="button">Edit</a>
+                    <a href="{{ url_for('roles_bp.user', user_id=user.id) }}" class="button">Edit</a>
 
-                    {% if session['username'] == user.name %}
+                    {% if current_user.name == user.name %}
                     <form method="POST" action="{{ url_for('roles_bp.demote', user_id=user.id) }}">
                         <button class="button is-warning" type="submit" disabled>Demote to Employee</button>
                     </form>

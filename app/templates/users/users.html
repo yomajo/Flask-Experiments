@@ -5,7 +5,7 @@
 {% block content %}
 <section class="section">
     <div class="container mb-2">
-        <p>You are logged in as: {{ logged_in_as.name }}; your clearance level: {{ logged_in_as.clearance }}</p>
+        <p>You are logged in as: {{ current_user.name }}; your clearance level: {{ current_user.clearance }}</p>
     </div>
 
     <div class="container">
@@ -14,7 +14,7 @@
         <ul>
             {% for user in registered_users %}
             {% if user.clearance != 1 %}
-            <li>ID: {{ user.id }}; name: {{ user.name }}</li>
+            <li>ID: {{ user.id }}; name: <strong><a href="{{ url_for('roles_bp.user', user_id=user.id) }}">{{ user.name }}</a></strong></li>
             {% endif %}
             {% endfor %}
         </ul>

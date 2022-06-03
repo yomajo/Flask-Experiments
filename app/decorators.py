@@ -1,11 +1,10 @@
 from functools import wraps
-from flask import session, abort
-from .extensions import db
-from .models import User
+from flask import abort
+from flask_login import current_user
 
 
 def required_clearance(clearance_lvl:int):
-    '''pass required resource clearance lvl as int:
+    '''decorator for role-protected routes. Pass clearance_lvl (int) arg for specific resource to get access or get 403.
     1: admin
     2: manager
     3: pleb
@@ -14,16 +13,13 @@ def required_clearance(clearance_lvl:int):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            if 'username' in session:
-                user = db.session.query(User).filter_by(name=session['username']).first_or_404()
-                if clearance_lvl < user.clearance:
-                    # insufficient clearance
-                    print(f'\nYour clearance level {user.clearance} is insufficient to get lvl {clearance_lvl} recourse. Request blocked by decorator\n')
+            if current_user.is_authenticated:
+                if clearance_lvl < current_user.clearance:
+                    print(f'\n{current_user.name} clearance lvl {current_user.clearance} is insufficient to get lvl {clearance_lvl} recourse. Request blocked by decorator\n')
                     abort(403)
                 else:
                     return func(*args, **kwargs)
             else:
                 abort(403)
-
         return wrapper
     return decorator
