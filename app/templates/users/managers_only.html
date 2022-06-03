@@ -16,6 +16,8 @@
                 <th>id</th>
                 <th>username</th>
                 <th>clearance</th>
+                <th>promote</th>
+                <th>demote</th>
             </thead>
             <tbody>
                 {% for user in registered_users %}
@@ -23,6 +25,31 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.clearance }}</td>
+                    {% if session['username'] == user.name %}
+                    <td>
+                        <form method="POST" action="{{ url_for('roles_bp.promote', user_id=user.id) }}">
+                            <button class="button is-success" type="submit" value="Promote" disabled>Promote to
+                                Manager</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('roles_bp.demote', user_id=user.id) }}">
+                            <button class="button is-warning" type="submit" value="Demote" disabled>Demote to
+                                Employee</button>
+                        </form>
+                    </td>
+                    {% else %}
+                    <td>
+                        <form method="POST" action="{{ url_for('roles_bp.promote', user_id=user.id) }}">
+                            <button class="button is-success" type="submit" value="Promote">Promote to Manager</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('roles_bp.demote', user_id=user.id) }}">
+                            <button class="button is-warning" type="submit" value="Demote">Demote to Employee</button>
+                        </form>
+                    </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

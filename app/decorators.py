@@ -18,7 +18,7 @@ def required_clearance(clearance_lvl:int):
                 user = db.session.query(User).filter_by(name=session['username']).first_or_404()
                 if clearance_lvl < user.clearance:
                     # insufficient clearance
-                    print(f'\nYour clearance level {user.clearance} is insufficient to get lvl {clearance_lvl} recourse\n')
+                    print(f'\nYour clearance level {user.clearance} is insufficient to get lvl {clearance_lvl} recourse. Request blocked by decorator\n')
                     abort(403)
                 else:
                     return func(*args, **kwargs)

@@ -61,7 +61,7 @@ def logout():
     else:
         return f'''<p>You are not logged in!</p><br><a href="{url_for('site.index')}">Home</a>'''
 
-@roles_bp.route('/user/<id>', methods=['GET', 'POST', 'DELETE'])
+@roles_bp.route('/user/<id>', methods=['GET', 'POST'])
 @required_clearance(3)
 def user(id:int):
     if 'username' in session:
@@ -78,15 +78,17 @@ def user(id:int):
             return redirect(url_for('roles_bp.admin_dashboard'))
         else:
             abort(403)
-    # GET
-    return render_template('user.html', user=target_user)
+    # GET - eject if request coming from different user
+    if logged_in_as.clearance == 1 or logged_in_as.id == target_user.id:
+        return render_template('user.html', user=target_user)
+    else:
+        abort(403)
 
-@roles_bp.route('/delete/<int:id>', methods=['GET', 'POST'])
+@roles_bp.route('/delete/<int:user_id>', methods=['GET', 'POST'])
 @required_clearance(2)
-def delete_user(id):
-
+def delete_user(user_id):
     logged_in_as = db.session.query(User).filter_by(name=session['username']).first()
-    target_user = db.session.query(User).filter_by(id=id).first_or_404()
+    target_user = db.session.query(User).filter_by(id=user_id).first_or_404()
     if request.method == 'POST':
         # skipping asking for confirmation in production...
         if logged_in_as.clearance == 1 or (logged_in_as.clearance == 2 and target_user.clearance == 3):
@@ -103,9 +105,8 @@ def delete_user(id):
 def managers_only():
     if 'username' in session:
         logged_in_as = db.session.query(User).filter_by(name=session['username']).first_or_404()
-    registered_users = User.query.all()
-    return render_template('managers_only.html', logged_in_as=logged_in_as, registered_users=registered_users)
-
+    non_admin_users = db.session.query(User).filter(User.clearance!=1).all()
+    return render_template('managers_only.html', logged_in_as=logged_in_as, registered_users=non_admin_users)
 
 @roles_bp.route('/admin_dashboard')
 @required_clearance(1)
@@ -113,9 +114,25 @@ def admin_dashboard():
     registered_users = User.query.all()
     return render_template('admin_dashboard.html', registered_users=registered_users)
 
-
-@roles_bp.route('/<int:id>')
+@roles_bp.route('/promote/<int:user_id>', methods=['POST'])
 @required_clearance(2)
-def promote(id, methods='PUT'):
-    print(f'\nTrying to promote dude {id}\n')
-    return jsonify({'msg':'To be implemented...'})
+def promote(user_id):
+    target_user = User.query.get_or_404(user_id)
+    if target_user.clearance == 3:
+        target_user.clearance -= 1
+        db.session.commit()
+        return redirect(url_for('roles_bp.managers_only'))
+    else:
+        return jsonify({'msg':'Nice try promoting to admin...'})
+
+@roles_bp.route('/demote/<int:user_id>', methods=['POST'])
+@required_clearance(2)
+def demote(user_id):
+    logged_in_as = db.session.query(User).filter_by(name=session['username']).first()
+    target_user = User.query.get_or_404(user_id)
+    if target_user.clearance == 2:
+        target_user.clearance += 1
+        db.session.commit()
+        return redirect(url_for('roles_bp.managers_only'))
+    else:
+        return jsonify({'msg':'Nice try promoting to admin...'})
