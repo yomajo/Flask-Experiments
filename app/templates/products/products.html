@@ -18,6 +18,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Brand</th>
                 <th>Qty</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td><a href="{{ url_for('prod_bp.product', id=product.id) }}">{{ product.name }}</a></td>
+                <td>{{ product.brand.name }}</td>
                 <td>{{ product.qty }} <a href="{{ url_for('prod_bp.delete', id=product.id) }}"><button
                             class="delete"></button></td></a>
             </tr>

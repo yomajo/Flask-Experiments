@@ -29,6 +29,13 @@
                 </div>
               </div>
             
+              <div class="select">
+                <select name="selected-brand">
+                  {% for brand in brands %}
+                  <option>{{ brand }}</option>
+                  {% endfor %}
+                </select>
+              </div>
               <input type="submit" class="button">
         
         </form>
