@@ -1,5 +1,6 @@
 from config import DevelopmentConfig
-from flask import Flask, render_template
+from flask import Flask
+from flask_migrate import Migrate
 from app.routes import site
 from app.routes.products import prod_bp
 from app.routes.users import roles_bp
@@ -17,6 +18,8 @@ def create_app():
 
     from app.extensions import db
     db.init_app(app)
+    
+    Migrate(app, db)
 
     login_manager.init_app(app)
 
