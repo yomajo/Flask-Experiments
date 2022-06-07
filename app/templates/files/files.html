@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Files{% endblock %}
+
+{% block content %}
+<section class="section">
+    <a href="{{ url_for('files_bp.upload_file') }}" class="button">Upload New File</a>
+
+    <div class="container">
+        {% if fnames %}
+        <h1 class="title is-4">List of available files</h1>
+        {% for fname in fnames %}
+
+        <ol>
+            <li><a href="{{ url_for('static', filename='me_so_static.html') }}">{{ fname }}</a> <a href="{{ url_for('files_bp.download_sample') }}">On route</a></li>
+        </ol>
+        {% endfor %}
+
+        {% else %}
+        <div class="notification is-warning">
+            Currently no items are in database. Add one!
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -4,3 +4,5 @@
 *.txt
 __pycache__
 short_scripts
+*.csv
+csv_writer_reader.py

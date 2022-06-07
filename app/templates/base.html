@@ -10,35 +10,44 @@
 </head>
 
 <body>
-        <div class="container has-text-centered">
-            <h2 class="title is-4"><a href="{{ url_for('site.index') }}">Home</a></h3>
-        </div>
-        
-        <div class="tabs is-centered">
-            <p class="title is-5 is-pulled-left">Products</p>
-            <ul>
-                <li><a href="{{ url_for('prod_bp.products') }}">products</a></li>
-                <li><a href="{{ url_for('prod_bp.add_product') }}">add product</a></li>
-                <li>product/id (pick at products)</li>
+    <div class="container has-text-centered">
+        <h2 class="title is-4"><a href="{{ url_for('site.index') }}">Home</a></h3>
+    </div>
+
+    <div class="tabs is-centered">
+        <p class="title is-5 is-pulled-left">Products</p>
+        <ul>
+            <li><a href="{{ url_for('prod_bp.products') }}">products</a></li>
+            <li><a href="{{ url_for('prod_bp.add_product') }}">add product</a></li>
+            <li>product/id (pick at products)</li>
+        </ul>
+    </div>
+
+    <div class="tabs is-centered">
+        <p class="title is-5 is-pulled-left">User Roles</p>
+        <ul>
+            <li><a href="{{ url_for('roles_bp.users') }}">users</a></li>
+            <li><a href="{{ url_for('roles_bp.register') }}">register</a></li>
+            <li><a href="{{ url_for('roles_bp.login') }}">login</a></li>
+            <li><a href="{{ url_for('roles_bp.logout') }}">logout</a></li>
+            <li><a href="{{ url_for('roles_bp.managers_only') }}">managers only</a></li>
+            <li><a href="{{ url_for('roles_bp.admin_dashboard') }}">admin area</a></li>
+            <li>user/id (pick at users)</li>
+        </ul>
+    </div>
+
+
+    <div class="tabs is-centered">
+        <p class="title is-5 is-pulled-left">Static files</p>
+        <ul>
+                <li><a href="{{ url_for('files_bp.get_files') }}">available files</a></li>
+                <li><a href="{{ url_for('files_bp.upload_file') }}">upload file</a></li>
             </ul>
-        </div>
-
-        <div class="tabs is-centered">
-            <p class="title is-5 is-pulled-left">User Roles</p>
-            <ul>
-                <li><a href="{{ url_for('roles_bp.users') }}">users</a></li>
-                <li><a href="{{ url_for('roles_bp.register') }}">register</a></li>
-                <li><a href="{{ url_for('roles_bp.login') }}">login</a></li>
-                <li><a href="{{ url_for('roles_bp.logout') }}">logout</a></li>
-                <li><a href="{{ url_for('roles_bp.managers_only') }}">managers only</a></li>
-                <li><a href="{{ url_for('roles_bp.admin_dashboard') }}">admin area</a></li>
-                <li>user/id (pick at users)</li>
-            </ul>
+    </div>
 
 
-        </div>
-    
     {% block content %}{% endblock %}
 
 </body>
+
 </html>

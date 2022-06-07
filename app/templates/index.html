@@ -6,7 +6,7 @@
 <div class="container">
     <div class="card mb-6">
         <header class="card-header">
-            <a href={{ url_for('prod_bp.products') }} class="title is-4">Products</a>
+            <a href="{{ url_for('prod_bp.products') }}" class="title is-4">Products</a>
         </header>
         <div class="content mt-4">
             Simple products CRUD
@@ -15,12 +15,23 @@
 
     <div class="card mb-6">
         <header class="card-header">
-            <a href={{ url_for('roles_bp.register') }} class="title is-4">Users and Roles</a>
+            <a href="{{ url_for('roles_bp.register') }}" class="title is-4">Users and Roles</a>
         </header>
         <div class="content mt-4">
             Register, login via flask-login. Use of @login_required decorator as well as
             custom role limiting on routes
         </div>
     </div>
+
+    <div class="card mb-6">
+        <header class="card-header">
+            <a href="{{ url_for('files_bp.get_files') }}" class="title is-4">Files</a>
+        </header>
+        <div class="content mt-4">
+            Upload, view and download static files
+        </div>
+    </div>
+
+    
 </div>
 {% endblock %}

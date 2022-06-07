@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Upload New File{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="is-title is-4">Upload new file</h1>
+</div>
+
+<div class="container">
+    <form action="{{ url_for('files_bp.upload_file') }}" method="POST">
+        <input type="file" name="fname" id="">
+        <input type="submit" value="Upload" class="button">
+    </form>
+</div>
+
+{% endblock %}
