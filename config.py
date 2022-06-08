@@ -7,6 +7,7 @@ load_dotenv('.env')
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
+    UPLOAD_FOLDER = 'static/uploads'
 
 class ProductionConfig(Config):
     DATABASE_URI = 'mysql://user@localhost/foo'

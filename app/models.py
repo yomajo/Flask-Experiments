@@ -1,3 +1,5 @@
+from datetime import datetime
+from xmlrpc.client import Boolean
 from flask_login import UserMixin
 from .extensions import db, login_manager
 
@@ -37,3 +39,17 @@ class Brand(db.Model):
     
     def __repr__(self) -> str:
         return f'Brand(id={self.id}, name={self.name})'
+
+class UploadFile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(30), nullable=False)
+    fpath = db.Column(db.String(100), nullable=False)
+    user_upload = db.Column(db.Boolean)
+    upload_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self) -> str:
+        return f'''UploadFile(id={self.id},
+            filename={self.filename},
+            fpath={self.fpath},
+            user_upload={self.user_upload},
+            upload_date={self.upload_date})'''

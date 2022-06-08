@@ -4,17 +4,22 @@
 
 {% block content %}
 <section class="section">
+    <a href="{{ url_for('files_bp.url') }}">Test Path</a>
+    <br>
     <a href="{{ url_for('files_bp.upload_file') }}" class="button">Upload New File</a>
 
     <div class="container">
-        {% if fnames %}
+        {% if up_fs %}
         <h1 class="title is-4">List of available files</h1>
-        {% for fname in fnames %}
-
+        <p>Click to download</p>
         <ol>
-            <li><a href="{{ url_for('static', filename='me_so_static.html') }}">{{ fname }}</a> <a href="{{ url_for('files_bp.download_sample') }}">On route</a></li>
+            {% for up_fs in up_fs %}
+            <li>
+                <a href="{{ url_for('files_bp.download_file', id=up_fs.id) }}">{{ up_fs.filename }}</a>
+                (uploaded on: {{ up_fs.upload_date }})
+            </li>
+            {% endfor %}
         </ol>
-        {% endfor %}
 
         {% else %}
         <div class="notification is-warning">
