@@ -8,9 +8,10 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
     UPLOAD_FOLDER = 'static/uploads'
+    MAX_CONTENT_LENGTH = 16 * 1000 * 1000
 
 class ProductionConfig(Config):
-    DATABASE_URI = 'mysql://user@localhost/foo'
+    pass
 
 class DevelopmentConfig(Config):
     PG_PASS = os.environ['PG_PASS']
