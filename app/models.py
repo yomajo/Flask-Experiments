@@ -1,5 +1,4 @@
 from datetime import datetime
-from xmlrpc.client import Boolean
 from flask_login import UserMixin
 from .extensions import db, login_manager
 
