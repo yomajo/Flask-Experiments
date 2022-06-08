@@ -17,4 +17,8 @@ Currently in menu:
 
 See `required_clearance` decorator for role-based access control.
 
+### Upload / Download files
+
+`/files` - handling user file uploads, limiting types, creating database entry and serving files to download.
+
 
