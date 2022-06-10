@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Files{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="block">
+        <div class="notification is-success">{{ msg }}</div>
+    </div>
+    {% if xlsx_values %}
+    <div class="block">
+        <p class="content">These are the values from excel A2 cells:</p>
+        <br>
+        {% for val in xlsx_values %}
+        <p>{{ val }}</p>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="notification is-info">
+        No excel files in your uploads.
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

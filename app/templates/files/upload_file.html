@@ -10,8 +10,8 @@
 <div class="container has-text-centered has-text-danger has-text-weight-semibold">Accepted files: {{ accepted_exts }}</div>
 
 <div class="container">
-    <form action="{{ url_for('files_bp.upload_file') }}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file">
+    <form action="{{ url_for('files_bp.processing') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" multiple>
         <input type="submit" value="Upload" class="button">
     </form>
 </div>

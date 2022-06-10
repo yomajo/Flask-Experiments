@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, render_template, redirect, url_for, request, abort
 from flask_login import current_user, login_required, login_user, logout_user
-from ..decorators import required_clearance
+from ..app_utils import required_clearance
 from ..models import db, User
 
 roles_bp = Blueprint('roles_bp', __name__, template_folder='../templates/users', url_prefix='/users')

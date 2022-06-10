@@ -6,3 +6,4 @@ __pycache__
 short_scripts
 *.csv
 csv_writer_reader.py
+files_for_upload_testing
