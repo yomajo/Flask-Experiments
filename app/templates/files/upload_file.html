@@ -2,18 +2,24 @@
 
 {% block title %}Upload New File{% endblock %}
 
+{% block head_import %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="container">
-    <h1 class="is-title is-4">Upload new file</h1>
+    <h1 class="is-title is-4">Upload new file(s)</h1>
 </div>
 
-<div class="container has-text-centered has-text-danger has-text-weight-semibold">Accepted files: {{ accepted_exts }}</div>
+<div class="container has-text-centered has-text-danger has-text-weight-semibold">
+    Accepted files: {{ accepted_exts }}
+</div>
 
 <div class="container">
-    <form action="{{ url_for('files_bp.processing') }}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" multiple>
-        <input type="submit" value="Upload" class="button">
+    <form action="{{ url_for('files_bp.upload_file') }}" class="dropzone" method="POST" id="dropzone" enctype="multipart/form-data">
     </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
 </div>
 
 {% endblock %}

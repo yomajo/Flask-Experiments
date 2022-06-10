@@ -28,7 +28,7 @@ def add_product():
 
 @prod_bp.route('/<int:id>')
 def product(id:int):
-    prod = db.session.query(Products).filter(Products.id==id).first()
+    prod = db.session.query(Products).get_or_404(id)
     return jsonify(prod.as_dict())
 
 @prod_bp.route('/delete/<int:id>')
