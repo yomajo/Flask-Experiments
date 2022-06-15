@@ -40,9 +40,17 @@
     <div class="tabs is-centered">
         <p class="title is-5 is-pulled-left">Static files</p>
         <ul>
-                <li><a href="{{ url_for('files_bp.get_files') }}">available files</a></li>
-                <li><a href="{{ url_for('files_bp.upload_file') }}">upload file</a></li>
-            </ul>
+            <li><a href="{{ url_for('files_bp.get_files') }}">available files</a></li>
+            <li><a href="{{ url_for('files_bp.upload_file') }}">upload file</a></li>
+        </ul>
+    </div>
+
+
+    <div class="tabs is-centered">
+        <p class="title is-5 is-pulled-left">Celery Tasks</p>
+        <ul>
+            <li><a href="{{ url_for('tasks_bp.tasks') }}">Create New task</a></li>
+        </ul>
     </div>
 
 

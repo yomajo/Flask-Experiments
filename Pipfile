@@ -12,6 +12,8 @@ python-dotenv = "*"
 flask-login = "*"
 flask-migrate = "*"
 openpyxl = "*"
+redis = "*"
+celery = "*"
 
 [dev-packages]
 

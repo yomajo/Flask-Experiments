@@ -35,4 +35,3 @@ def read_workbook(wb_path:str, fake_processing_secs:int=0) -> str:
     if fake_processing_secs:
         sleep(fake_processing_secs)
     return target_value
-    

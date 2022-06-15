@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="block">Create new task</div>
+    <div class="block">
+        <form method="POST", action="{{ url_for('tasks_bp.results') }}">
+            <label for="delay" class="label">Enter number of seconds before UUID4 is returned</label>
+            <input type="number" name="delay">
+            <input type="submit" class="button" value="Add task">
+        </form>
+    </div>
+</div>
+{% endblock %}

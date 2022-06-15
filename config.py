@@ -9,6 +9,10 @@ class Config(object):
     TESTING = False
     UPLOAD_FOLDER = 'static/uploads'
     MAX_CONTENT_LENGTH = 16 * 1000 * 1000
+    # broker_url = 'redis://127.0.0.1:6379/0',
+    # result_backend = 'redis://127.0.0.1:6379/0'
+
+
 
 class ProductionConfig(Config):
     pass
@@ -24,7 +28,16 @@ class DevelopmentConfig(Config):
     SECRET_KEY = 'supersecretstuff'
     SQLALCHEMY_DATABASE_URI = f'postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{PG_DB}'
 
+    CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+
+    # CELERY_CONFIG = {
+    #     'broker_url': 'redis://localhost:6379/0',
+    #     'result_backend': 'redis://localhost:6379/0'
+    #     }
+    
 
 class TestingConfig(Config):
     DATABASE_URI = 'sqlite:///:memory:'
     TESTING = True
+
