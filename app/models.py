@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_login import UserMixin
 from .extensions import db, login_manager
-
+from sqlalchemy import ForeignKey
 
 @login_manager.user_loader
 def load_user(id):
@@ -39,16 +39,28 @@ class Brand(db.Model):
     def __repr__(self) -> str:
         return f'Brand(id={self.id}, name={self.name})'
 
+class SKU(db.Model):
+    __tablename__ = 'sku'
+
+    sku = db.Column(db.String(100), primary_key=True)
+    date_added = db.Column(db.DateTime, default=datetime.utcnow)
+    same_weight_lsts = db.Column(db.Boolean, default=True)
+
+    upload_id = db.Column(db.Integer, ForeignKey('uploadfile.id'))
+    file = db.relationship('UploadFile')
+
+    def __repr__(self) -> str:
+        return f'SKU(sku={self.sku}, same_weight_lsts={self.same_weight_lsts}, upload_id={self.upload_id})'
+    
+
 class UploadFile(db.Model):
+    __tablename__ = 'uploadfile'
+
     id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(30), nullable=False)
     fpath = db.Column(db.String(100), nullable=False)
-    user_upload = db.Column(db.Boolean)
     upload_date = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self) -> str:
         return f'''UploadFile(id={self.id},
-            filename={self.filename},
             fpath={self.fpath},
-            user_upload={self.user_upload},
             upload_date={self.upload_date})'''

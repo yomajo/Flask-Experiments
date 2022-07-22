@@ -1,0 +1,1 @@
+pirma istrynem faila ir viskas veikia. id vis dar buvo reference, bet sku.file=None
