@@ -20,6 +20,9 @@ class User(db.Model, UserMixin):
 
 
 class Products(db.Model):
+    __tablename__ = 'products'
+    __searchable__ = ['name']
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True)
     qty = db.Column(db.Integer, nullable=False)
