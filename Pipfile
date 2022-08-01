@@ -12,6 +12,7 @@ python-dotenv = "*"
 flask-login = "*"
 flask-migrate = "*"
 openpyxl = "*"
+flask-msearch = "*"
 
 [dev-packages]
 

@@ -14,16 +14,17 @@ class ProductionConfig(Config):
     pass
 
 class DevelopmentConfig(Config):
-    PG_PASS = os.environ['PG_PASS']
+    # PG_PASS = os.environ['PG_PASS']
 
-    PG_USER='yo'
-    PG_DB='flaskexperiments'
-    PG_HOST='localhost'
-    PG_PORT='5432'
+    # PG_USER='yo'
+    # PG_DB='flaskexperiments'
+    # PG_HOST='localhost'
+    # PG_PORT='5432'
 
-    SECRET_KEY = 'supersecretstuff'
-    SQLALCHEMY_DATABASE_URI = f'postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{PG_DB}'
-
+    # SECRET_KEY = 'supersecretstuff'
+    # SQLALCHEMY_DATABASE_URI = f'postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{PG_DB}'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite'
 
 class TestingConfig(Config):
     DATABASE_URI = 'sqlite:///:memory:'
