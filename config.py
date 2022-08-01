@@ -26,6 +26,15 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite'
 
+    MSEARCH_INDEX_NAME = 'msearch'
+    # simple,whoosh,elaticsearch, default is simple
+    MSEARCH_BACKEND = 'whoosh'
+    # table's primary key if you don't like to use id, or set __msearch_primary_key__ for special model
+    MSEARCH_PRIMARY_KEY = 'id'
+    # auto create or update index
+    MSEARCH_ENABLE = True
+
+
 class TestingConfig(Config):
     DATABASE_URI = 'sqlite:///:memory:'
     TESTING = True

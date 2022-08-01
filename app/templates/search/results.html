@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        Go back <a href="/search">to search</a>
+    </div>
+    <div>
+        <h3>Results</h3>
+        <div>
+            {% if results %}
+                <p>results are present</p>
+                {% for result in results %}
+                <p>{{ result.name }}</p>
+                {% endfor %}
+            {% else %}
+            <div style="color:red">
+                No results were found for query: {{ query }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

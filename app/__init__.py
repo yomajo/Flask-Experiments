@@ -5,6 +5,7 @@ from app.routes import site
 from app.routes.products import prod_bp
 from app.routes.users import roles_bp
 from app.routes.files import files_bp
+from app.routes.search import search_bp
 from app.extensions import login_manager, search
 
 
@@ -17,6 +18,7 @@ def create_app():
     app.register_blueprint(prod_bp)
     app.register_blueprint(roles_bp)
     app.register_blueprint(files_bp)
+    app.register_blueprint(search_bp)
 
     from app.extensions import db
     db.init_app(app)
