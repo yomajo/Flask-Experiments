@@ -52,3 +52,11 @@ class UploadFile(db.Model):
             fpath={self.fpath},
             user_upload={self.user_upload},
             upload_date={self.upload_date})'''
+
+class CompositeTable(db.Model):
+    __tablename__ = 'compositetable'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    secondary_id = db.Column(db.Integer, primary_key=True)
+    marketplace = db.Column(db.String(20), primary_key=True)
+    name = db.Column(db.String(50))

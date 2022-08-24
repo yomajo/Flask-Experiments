@@ -1,5 +1,5 @@
 from app.extensions import db
-from app.models import User, Products, Brand, UploadFile
+from app.models import User, Products, Brand, UploadFile, CompositeTable
 from app import create_app
 
 
@@ -11,4 +11,11 @@ def createdb():
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'User': User, 'Products': Products, 'Brand': Brand, 'UploadFile': UploadFile}
+    return {
+        'db': db,
+        'User': User,
+        'Products': Products,
+        'Brand': Brand,
+        'UploadFile': UploadFile,
+        'CompositeTable': CompositeTable
+        }
