@@ -15,8 +15,10 @@ def products():
         id = request.form['id']
         name = request.form['name']
         qty = request.form['qty']
-        brand_name = request.form['selected-brand']        
-        new_item = Products(id=id, name=name, qty=qty, brand_id=brand_name) if id else Products(name=name, qty=qty, brand_name=brand_name)
+        brand_name = request.form['selected-brand']
+        
+        brand: Brand = db.session.query(Brand).filter(Brand.name==brand_name).first()
+        new_item = Products(id=id, name=name, qty=qty, brand_name=brand.name) if id else Products(name=name, qty=qty, brand_name=brand_name)
         db.session.add(new_item)
         db.session.commit()
         return redirect(url_for('prod_bp.products'))
@@ -45,6 +47,6 @@ def brands():
 @prod_bp.route('/explore_brands')
 def explore_brands():
     '''learning about queries, db models and foreign keys'''
-    brand_entries = db.session.query(Brand).filter_by(name='Utenos').all()
+    brand_entries = db.session.query(Brand).all()
     brand_products = [entry.products for entry in brand_entries]
-    return f'<h1>{brand_products}</h1>'
+    return f'<h1>{brand_products}</h1><br><h1>{brand_entries}</h1>'
